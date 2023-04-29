@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Anuphan:wght@200;300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+body {
+  font-family: "Anuphan", sans-serif;
+}
+.login {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(-45deg, #70dd94, #055d22);
+  overflow: hidden;
+}
+.login > img {
+  position: absolute;
+  bottom: 30px;
+  left: 5%;
+  width: 450px;
+  z-index: 1;
+}
+.login h1 {
+  font-size: 40px;
+  position: relative;
+  left: 40px;
+  top: 40px;
+  color: white;
+}
+.logincard {
+  position: absolute;
+  width: 70%;
+  height: 95%;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: white;
+  padding: 40px 15px;
+  border-radius: 20px;
+}
+.logincard h2 {
+  text-align: center;
+  font-size: 40px;
+}
+.logincard p {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 20px;
+  color: #666;
+}
+.logincard form {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40%;
+  margin: auto;
+}
+.logincard .input-group {
+  margin: 20px auto;
+}
+.logincard .input-group label {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+.logincard .input-group input {
+  display: block;
+  padding: 20px 10px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid silver;
+}
+.logincard form button {
+  width: 100%;
+  background-color: #055d22;
+  color: white;
+  padding: 15px;
+  border: none;
+  font-size: 20px;
+  border-radius: 8px;
+}

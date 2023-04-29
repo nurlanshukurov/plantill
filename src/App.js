@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import "./App.css";
+import { useState } from "react";
+import Login from "./views/Login";
+import Applies from "./components/Applies";
+import Chat from "./components/Chat";
+function App({ connection }) {
+  const [user] = useState(JSON.parse(localStorage.getItem("user")));
+  const [applyId, setApplyId] = useState(null);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {user === null ? (
+        <Login />
+      ) : (
+        <>
+          <Applies
+            setApplyId={setApplyId}
+            user={user}
+            connection={connection}
+          />
+          <Chat
+            applyId={applyId}
+            userId={user.userId}
+            connection={connection}
+          />
+        </>
+      )}
+    </>
   );
 }
 

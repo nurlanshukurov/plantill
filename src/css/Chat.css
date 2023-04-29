@@ -1,0 +1,159 @@
+main {
+  flex-grow: 1;
+  height: 100vh;
+  background-color: white;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+main .head {
+  background-color: #e7e7e7;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+main .head img {
+  margin-right: 10px;
+}
+main .head h3 {
+  font-weight: 500;
+}
+main .messages {
+  background: radial-gradient(#c5d4e88e, #81818146),
+    url(https://plantill.com/images/pattern-05.png);
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  height: 100%;
+  overflow-y: scroll;
+}
+main .messages .message {
+  margin-top: 10px;
+}
+main .messages .message p {
+  border-radius: 5px;
+  width: fit-content;
+  background-color: #6b19ff;
+  padding: 5px 10px;
+  font-size: 16px;
+  position: relative;
+  z-index: 1;
+  color: white;
+}
+main .messages .message span {
+  font-size: 10px;
+  color: #5c5c5c;
+  margin-top: 2px;
+  display: block;
+}
+main .messages .right {
+  text-align: right;
+}
+main .messages .right p {
+  margin-left: auto;
+}
+main .messages .right span {
+  padding-right: 8px;
+}
+main .messages .right p::after {
+  content: "";
+  border-style: solid;
+  border-width: 0 10px 8px 10px;
+  border-color: transparent transparent #6b19ff transparent;
+  position: absolute;
+  top: 100%;
+  right: -6px;
+  transform: translateY(-50%) rotate(-90deg);
+  z-index: 0;
+}
+main .messages .left p::after {
+  content: "";
+  border-style: solid;
+  border-width: 0 10px 8px 10px;
+  border-color: transparent transparent #6b19ff transparent;
+  position: absolute;
+  top: 0;
+  left: -6px;
+  transform: translateY(-50%) rotate(90deg);
+  z-index: 0;
+}
+main #message {
+  background-color: #e7e7e7;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+main #message input[type="text"] {
+  display: block;
+  padding: 8px;
+  border: 1px solid #6b19ff;
+  border-radius: 5px;
+  flex-grow: 1;
+  margin-right: 20px;
+}
+main #message i {
+  margin: 0 10px;
+  color: #6b19ff;
+  font-size: 14px;
+}
+main #message > button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+}
+.endchat {
+  margin-left: auto;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  background-color: rgb(32, 32, 119);
+}
+main {
+  position: relative;
+}
+.end-modal {
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background-color: #000000be;
+  transition: 0.3s;
+}
+.end-modal .stars {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  background-color: white;
+  transform: translate(-50%, -50%);
+  padding: 25px 35px;
+  border-radius: 5px;
+}
+.end-modal .stars i {
+  font-size: 26px;
+}
+.end-modal .stars .btns {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+.end-modal .stars button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}
+.end-modal .stars button:first-child {
+  background-color: red;
+}
+.end-modal .stars button:last-child {
+  background-color: #6b19ff;
+}
