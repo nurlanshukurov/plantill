@@ -157,3 +157,149 @@ main {
 .end-modal .stars button:last-child {
   background-color: #6b19ff;
 }
+.media-modal{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #333333e8;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+.media-modal .modal-content{
+  width: 400px;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  position: relative;
+  transform: translate(-50%,-50%);
+  padding: 15px;
+  border-radius: 5px;
+}
+.media-modal .modal-content .modal-head{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid silver;
+  padding-bottom: 8px;
+}
+.files{
+  display: flex;
+  flex-wrap: wrap;
+}
+.input-file{
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.input-file input{
+  display: none;
+}
+.input-file label{
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  border: 1px solid black;
+  display: inline-block;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  background-color: silver;
+  color: white;
+}
+.files .file{
+  width: 80px;
+  height: 80px;
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: 1px solid black;
+}
+.files .file img, .files .file video{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.modal-content button{
+  margin-left: auto;
+  display: block;
+  padding: 10px 18px;
+  background-color: #6b19ff;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.messages img, .messages video{
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.MediaViewer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #333333e7;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+}
+.viewer-content{
+  position: relative;
+  width: 50%;
+  background-color: white;
+  border-radius: 5px;
+  padding: 15px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 80%;
+  overflow: scroll;
+}
+.viewer-content img, .viewer-content video{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  max-height: 100%;
+  display: block;
+  max-width: 100%;
+}
+.viewer-content button{
+  display: block;
+  margin: 10px auto;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(143, 4, 4);
+  color: white;
+}
+.category{
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.category button{
+  width: 48%;
+  padding: 5px;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+.category button.active{
+  background-color: green;
+}
+.chatisend_p{
+  background-color: #333;
+  padding: 8px;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  margin-top: 8px;
+}

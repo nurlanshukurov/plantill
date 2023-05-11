@@ -4,7 +4,7 @@ function Apply({
   data,
   openApply,
   connection,
-  userId,
+  userKey,
   curApplyId,
   setCurApplyId,
 }) {
@@ -12,8 +12,7 @@ function Apply({
   const [opName, setOpName] = useState(data.fullName);
   const [notAccept, setNotAccept] = useState(data.accept);
   useEffect(() => {
-    console.log(data);
-    connection.on(`unread-${userId}-${data.applyId}`, () => {
+    connection.on(`unread-${data.applyId}`, () => {
       if (curApplyId !== data.applyId) {
         setIsRead("unread");
       }else{
@@ -34,7 +33,7 @@ function Apply({
     setNotAccept(true);
     setIsRead("");
     if (data.accept === false) {
-      connection.send("acceptoperator", data.applyId, userId);
+      connection.send("acceptoperator", data.applyId, userKey);
       event.target.classList.remove("notaccept");
     }
   };
@@ -42,6 +41,7 @@ function Apply({
     <li
       className={isRead + (notAccept === false ? " notaccept" : "")}
       onClick={open}
+      style={data.isEnd ? {background : "#333", color : "white"} : {}}
     >
       <h3>
         {opName}

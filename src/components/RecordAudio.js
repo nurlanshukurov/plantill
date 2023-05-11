@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
-const RecordAudio = ({ userId, otherUserId, applyId, doneSendVoice }) => {
+const RecordAudio = ({ applyId, doneSendVoice, token, setIsRec }) => {
   const [recording, setRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState(null);
   const mediaRecorderRef = useRef(null);
@@ -14,6 +14,7 @@ const RecordAudio = ({ userId, otherUserId, applyId, doneSendVoice }) => {
       );
       mediaRecorderRef.current.start();
       setRecording(true);
+      setIsRec(true);
     });
   };
 
@@ -30,13 +31,17 @@ const RecordAudio = ({ userId, otherUserId, applyId, doneSendVoice }) => {
   const sendAudio = () => {
     const formData = new FormData();
     formData.append("vioce", audioBlob, "audio.wav");
-    formData.append("userId", userId);
-    formData.append("otherUserId", otherUserId);
     formData.append("applyId", applyId);
     axios
-      .post("http://localhost:5051/Chat/SendVoice", formData)
+      .post("https://nurlanshukur.com/Chat/SendVoice", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         doneSendVoice(response.data);
+        setIsRec(false);
+        setAudioBlob(null);
       })
       .catch((error) => {
         console.log(error);
@@ -48,9 +53,14 @@ const RecordAudio = ({ userId, otherUserId, applyId, doneSendVoice }) => {
       {recording ? (
         <i className="fa-regular fa-circle-stop" onClick={stopRecording}></i>
       ) : (
-        <i className="fa-solid fa-microphone-lines" onClick={startRecording}></i>
+        <i
+          className="fa-solid fa-microphone-lines"
+          onClick={startRecording}
+        ></i>
       )}
-      {audioBlob && <i className="fa fa-paper-plane" onClick={sendAudio}></i>}
+      {audioBlob != null ? (
+        <i className="fa fa-paper-plane" onClick={sendAudio}></i>
+      ) : null}
     </div>
   );
 };

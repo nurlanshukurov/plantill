@@ -1,21 +1,26 @@
 import React from "react";
 import "../css/NewApply.css";
 import axios from "axios";
-function NewApply({ userId, showModal, addApply }) {
+function NewApply({ showModal, addApply, token }) {
   const send = (e) => {
     e.preventDefault();
     let form = {
-      applyClientId: userId,
       applyPlantId: e.target.querySelector("#PlantId").value,
       text: "",
     };
     if (e.target.querySelector("#text-message").value != "") {
       form = { ...form, text: e.target.querySelector("#text-message").value };
     }
-    axios.post("http://localhost:5051/Chat/AddApply", form).then((res) => {
-      addApply(res.data);
-      showModal(false);
-    });
+    axios
+      .post("https://nurlanshukur.com/Chat/AddApply", form, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        addApply(res.data);
+        showModal(false);
+      });
   };
   return (
     <div className="new-apply">

@@ -2,32 +2,45 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NewApply from "./NewApply";
 import Apply from "./Apply";
-function Applies({ setApplyId, user, connection }) {
+import { useAuth } from "../contexts/AuthContext";
+
+function Applies({ setApplyId }) {
   const [applies, setApplies] = useState([]);
   const [modal, showModal] = useState(false);
   const [curApplyId, setCurApplyId] = useState(null);
+  const { user, con } = useAuth();
+  const [category, setCategory] = useState(false);
   useEffect(() => {
-    if (user !== null) {
-      axios
-        .get("http://localhost:5051/Chat/ApplyList/" + user.userId)
-        .then((res) => {
-          setApplies(res.data);
-        });
-    }
+    axios
+      .get("https://nurlanshukur.com/Chat/ApplyList", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+      .then((res) => {
+        setApplies(res.data);
+      });
   }, []);
   useEffect(() => {
-    if (user.userStatus === 2) {
-      connection.on("operatorApply", (res) => {
+    con.on(`endchat-${user.key}`, (applyId) => {
+      const app = applies.find((a) => {
+        return a.applyId === applyId;
+      });
+      if (app.isEnd === false) {
+        app.isEnd = true;
+      }
+    });
+  }, [applies]);
+  useEffect(() => {
+    // eger operatordursa
+    if (user.status === 2) {
+      //yeni gelen applylari gozleyir
+      con.on("operatorApply", (res) => {
         setApplies([...applies, res]);
       });
-      connection.on(`reciveacceptforop`, (res) => {
-        if (res.oppId !== user.userId) {
-          console.log(res);
-          console.log(
-            applies.filter((x) => {
-              return x.applyId === res.applyid;
-            })
-          );
+      //qebul olan applylari diger operatorlardan silir
+      con.on(`reciveacceptforop`, (res) => {
+        if (res.oppKey !== user.key) {
           setApplies(
             applies.filter((x) => {
               return x.applyId !== res.applyid;
@@ -38,15 +51,17 @@ function Applies({ setApplyId, user, connection }) {
     }
   }, [applies]);
   const addApply = (x) => {
+    //yeni apply yaratmaq
+    x.isEnd = false;
     setApplies([...applies, x]);
     let signal = {
       ...x,
-      otherUserId: user.userId,
-      fullName: user.userFullName,
+      otherUserKey: user.key,
+      fullName: user.fullName,
       accept: false,
     };
     setApplyId(x.applyId);
-    connection.send("newapply", signal);
+    con.send("newapply", signal);
   };
   function compare(a, b) {
     if (a.unRead && !b.unRead) {
@@ -61,35 +76,52 @@ function Applies({ setApplyId, user, connection }) {
     <>
       <nav>
         <div className="head">
-          <h2>{user.userFullName}</h2>
+          <h2>{user.fullName}</h2>
           <i
             onClick={() => showModal(true)}
             className="fa-regular fa-pen-to-square"
           ></i>
         </div>
-        <h4>Chats</h4>
-        <input type="search" className="search" placeholder="search..." />
+        <div className="category">
+          <button
+            className={!category ? "active" : ""}
+            onClick={() => setCategory(false)}
+          >
+            Aktiv
+          </button>
+          <button
+            className={category ? "active" : ""}
+            onClick={() => setCategory(true)}
+          >
+            Bitmiş
+          </button>
+        </div>
         <ul className="chats">
-          {applies.sort(compare).map((a) => {
-            return (
-              <Apply
-                data={a}
-                openApply={(id) => setApplyId(id)}
-                connection={connection}
-                userId={user.userId}
-                key={a.applyId}
-                curApplyId={curApplyId}
-                setCurApplyId={setCurApplyId}
-              />
-            );
-          })}
+          {applies
+            .filter((a) => {
+              return a.isEnd === category;
+            })
+            .sort(compare)
+            .map((a) => {
+              return (
+                <Apply
+                  data={a}
+                  openApply={(id) => setApplyId(id)}
+                  connection={con}
+                  userKey={user.key}
+                  key={a.applyId}
+                  curApplyId={curApplyId}
+                  setCurApplyId={setCurApplyId}
+                />
+              );
+            })}
         </ul>
       </nav>
       {modal ? (
         <NewApply
-          userId={user.userId}
           showModal={showModal}
           addApply={addApply}
+          token={user.token}
         />
       ) : null}
     </>
